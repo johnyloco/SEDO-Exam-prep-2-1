@@ -8,10 +8,17 @@ const refs = {
 function $(sel) { return document.querySelector(sel); }
 function $all(sel) { return Array.from(document.querySelectorAll(sel)); }
 
+
 // Add task
 $(refs.addBtn).addEventListener('click', () => {
   const text = $(refs.input).value.trim();
   if (!text) return alert('Cannot add an empty task');
+addBtn.addEventListener('click', () => {
+  const text = input.value.trim();
+  if (!text) {
+    alert('Cannot add an empty task');
+    return;
+  }
   const li = document.createElement('li');
   li.textContent = text;
   $(refs.list).appendChild(li);
@@ -31,9 +38,16 @@ $(refs.list).addEventListener('dblclick', e => {
   }
 });
 
+
 // Clear completed
 if ($(refs.clearBtn)) {
   $(refs.clearBtn).addEventListener('click', () => {
     $all(`${refs.list} li.completed`).forEach(li => li.remove());
   });
 }
+// Clear all completed tasks
+const clearBtn = document.getElementById('clear-completed-btn');
+clearBtn.addEventListener('click', () => {
+  document.querySelectorAll('#task-list li.completed')
+    .forEach(li => li.remove());
+});
